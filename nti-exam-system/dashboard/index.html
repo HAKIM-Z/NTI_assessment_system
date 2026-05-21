@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTI | Dashboard - Capacity Building Program</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body id="dashboard-page">
+    <!-- Navbar -->
+    <nav class="navbar-nti">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="index.html" class="navbar-brand-nti">
+                    <span class="brand-logo">NTI</span>
+                    <div class="brand-subtitle">
+                        <div>CAPACITY BUILDING</div>
+                        <div>PROGRAM</div>
+                    </div>
+                </a>
+
+                <div class="d-none d-md-flex align-items-center gap-4">
+                    <a href="index.html" class="nav-link-nti active">Home</a>
+                    <a href="#" class="nav-link-nti">Profile</a>
+                    <a href="#" class="nav-link-nti">About</a>
+                    <a href="#" class="nav-link-nti">Contact</a>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-info d-none d-sm-block">
+                        <div class="user-greeting">HI STUDENT</div>
+                        <div class="user-role">Candidate Account</div>
+                    </div>
+                    <button class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <h2 class="mb-4 animate-fade-in" style="font-weight: 300;">
+            WELCOME, <span style="font-weight: 700;">[STUDENT NAME]</span>
+        </h2>
+
+        <div class="row g-4">
+            <!-- IQ & English Card -->
+            <div class="col-md-6 animate-fade-in delay-1">
+                <div class="card-nti h-100" id="iq-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="card-icon green">📄</div>
+                        <span class="status-badge locked"><i class="fas fa-lock"></i> Not Started</span>
+                    </div>
+                    <h3 class="card-title">IQ & English Assessment</h3>
+                    <p class="card-text">
+                        Analyse cognitive and language preference. Combined 10 minute session for both. 
+                        Start with IQ, then proceed to English.
+                    </p>
+                    <div class="card-meta"><strong>IQ Questions:</strong> 15</div>
+                    <div class="card-meta mb-3"><strong>English Questions:</strong> 15</div>
+                    <a href="../exams/instructions.html" class="btn-nti btn-nti-primary w-100">
+                        <i class="fas fa-play"></i> TAKE THE ASSESSMENT
+                    </a>
+                </div>
+            </div>
+
+            <!-- Technical Card -->
+            <div class="col-md-6 animate-fade-in delay-2">
+                <div class="card-nti h-100 locked" id="tech-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="card-icon yellow">💡</div>
+                        <span class="status-badge locked"><i class="fas fa-lock"></i> Locked</span>
+                    </div>
+                    <h3 class="card-title">Technical Assessment</h3>
+                    <p class="card-text">
+                        Technical skills evaluation based on your selected job profile (Front-end). 
+                        20 questions, 20 minute session.
+                    </p>
+                    <div class="card-meta mb-3"><strong>Questions:</strong> 20 | <strong>Duration:</strong> 20 min</div>
+                    <button class="btn-nti btn-nti-secondary w-100" disabled>
+                        <i class="fas fa-lock"></i> UNLOCKS AFTER IQ & ENGLISH ASSESSMENT IS COMPLETED
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Progress Sidebar (Optional enhancement) -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card-nti animate-fade-in delay-3">
+                    <h4 class="mb-3" style="font-size: 1rem; color: var(--text-secondary);">
+                        <i class="fas fa-info-circle me-2"></i>Instructions
+                    </h4>
+                    <ul class="instructions-list">
+                        <li><i class="fas fa-check"></i> Total time for IQ & English: 10 minutes</li>
+                        <li><i class="fas fa-check"></i> You cannot go back to previous question</li>
+                        <li><i class="fas fa-check"></i> Do not refresh or close the page</li>
+                        <li><i class="fas fa-check"></i> Click Submit to save your answer</li>
+                        <li><i class="fas fa-check"></i> Technical assessment unlocks after completing IQ & English</li>
+                        <li><i class="fas fa-check"></i> Passing score: 60% for each assessment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="completion-modal">
+        <div class="modal-box">
+            <div class="modal-icon info" id="modal-icon"><i class="fas fa-info-circle"></i></div>
+            <h3 class="modal-title" id="modal-title">Title</h3>
+            <p class="modal-text" id="modal-text">Message</p>
+            <button class="btn-nti btn-nti-primary" id="modal-btn">OK</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Check auth
+        Auth.requireAuth();
+
+        // Initialize dashboard state
+        document.addEventListener('DOMContentLoaded', () => {
+            Dashboard.init();
+        });
+    </script>
+</body>
+</html>

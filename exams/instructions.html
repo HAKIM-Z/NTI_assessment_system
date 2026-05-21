@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructions - NTI Assessment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a href="../dashboard/index.html" class="navbar-brand">
+                    <span class="brand-logo">NTI</span>
+                    <div class="brand-text">
+                        <span class="brand-title">Capacity Building</span>
+                        <span class="brand-subtitle">Program</span>
+                    </div>
+                </a>
+
+                <div class="d-flex align-items-center gap-3">
+                    <div class="timer-box" style="margin: 0; padding: 0.5rem 1rem;">
+                        <div class="timer-label">Time Remaining</div>
+                        <div class="timer-value" style="font-size: 1.2rem;">10:00</div>
+                    </div>
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 style="font-size: 1.25rem; font-weight: 700; margin: 0;">📋 Exam Instructions</h2>
+                        <span class="text-muted" style="font-size: 0.85rem;">IQ & English Assessment</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-green);">
+                                Before You Start
+                            </h3>
+                            <ul class="instructions-list">
+                                <li>Total time for IQ & English: 10 minutes combined</li>
+                                <li>You cannot go back to previous questions once submitted</li>
+                                <li>Do not refresh or close the page during the exam</li>
+                                <li>Click Submit to save your answer for each question</li>
+                                <li>The exam consists of 2 sessions: IQ (15 questions) and English (15 questions)</li>
+                                <li>Each question has 4 options, only one is correct</li>
+                                <li>You must complete the IQ session before proceeding to English</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-green);">
+                                Exam Structure
+                            </h3>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="card" style="background: rgba(34, 197, 94, 0.05);">
+                                        <div class="card-body text-center">
+                                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧠</div>
+                                            <h4 style="font-size: 1rem; font-weight: 700;">IQ Session</h4>
+                                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">
+                                                15 Questions<br>Pattern Recognition, Logic, Math
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card" style="background: rgba(59, 130, 246, 0.05);">
+                                        <div class="card-body text-center">
+                                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌐</div>
+                                            <h4 style="font-size: 1rem; font-weight: 700;">English Session</h4>
+                                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">
+                                                15 Questions<br>Vocabulary, Grammar, Comprehension
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert" style="background: var(--accent-green-light); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: var(--radius); padding: 1rem;">
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="font-size: 1.2rem;">💡</span>
+                                <span style="font-size: 0.9rem; color: var(--accent-green);">
+                                    <strong>Tip:</strong> Read each question carefully before answering. You can navigate between questions using the sidebar.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="../dashboard/index.html" class="btn btn-secondary">← Back to Dashboard</a>
+                        <a href="iq.html" class="btn btn-primary btn-lg">Start IQ Session →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modal-icon">ℹ️</div>
+            <div class="modal-title" id="modal-title">Title</div>
+            <div class="modal-text" id="modal-text">Message</div>
+            <div class="modal-buttons" id="modal-buttons"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

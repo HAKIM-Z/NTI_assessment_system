@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Session - NTI Assessment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a href="../dashboard/index.html" class="navbar-brand">
+                    <span class="brand-logo">NTI</span>
+                    <div class="brand-text">
+                        <span class="brand-title">Capacity Building</span>
+                        <span class="brand-subtitle">Program</span>
+                    </div>
+                </a>
+
+                <div class="d-flex align-items-center gap-3">
+                    <div class="timer-box" style="margin: 0;">
+                        <div class="timer-label">Time Remaining</div>
+                        <div class="timer-value" id="timer">20:00</div>
+                    </div>
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Exam Container -->
+    <div class="exam-container">
+        <!-- Left Sidebar - Progress -->
+        <div class="exam-sidebar">
+            <div class="card">
+                <div class="card-header">
+                    <span style="font-weight: 600; font-size: 0.9rem;">Exam Progress</span>
+                </div>
+                <div class="card-body">
+                    <div class="progress-steps">
+                        <div class="step-item completed">
+                            <div class="step-number">✓</div>
+                            <div class="step-title">IQ & English<br>Assessment</div>
+                        </div>
+                        <div class="step-item active">
+                            <div class="step-number">2</div>
+                            <div class="step-title">Technical<br>Assessment</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-title">Results</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <span style="font-weight: 600; font-size: 0.9rem;">Instructions</span>
+                </div>
+                <div class="card-body" style="padding: 1rem;">
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.8rem; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;">• Total time: 20 minutes</li>
+                        <li style="margin-bottom: 0.5rem;">• 20 Questions</li>
+                        <li style="margin-bottom: 0.5rem;">• Don't refresh or close</li>
+                        <li>• Click Submit to submit</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="exam-main">
+            <div style="margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.1rem; font-weight: 700; color: var(--accent-green);">
+                    TECHNICAL ASSESSMENT (FRONT-END)
+                </h2>
+            </div>
+
+            <!-- Question Container -->
+            <div id="question-container"></div>
+        </div>
+
+        <!-- Right Sidebar - Questions -->
+        <div class="exam-questions-nav">
+            <div class="card">
+                <div class="card-header">
+                    <span style="font-weight: 600; font-size: 0.9rem;">Questions</span>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 1rem;">
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">IQ SESSION (15)</div>
+                        <div class="question-grid" style="opacity: 0.5;">
+                            ${Array.from({length: 15}, (_, i) => `
+                                <button class="question-btn answered" disabled>${i + 1}</button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">ENGLISH SESSION (15)</div>
+                        <div class="question-grid" style="opacity: 0.5;">
+                            ${Array.from({length: 15}, (_, i) => `
+                                <button class="question-btn answered" disabled>${i + 1}</button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">TECHNICAL SESSION (20)</div>
+                        <div class="question-grid" id="question-grid"></div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-danger w-100" onclick="submitExam('technical')">
+                        Submit Exam ✓
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modal-icon">ℹ️</div>
+            <div class="modal-title" id="modal-title">Title</div>
+            <div class="modal-text" id="modal-text">Message</div>
+            <div class="modal-buttons" id="modal-buttons"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Initialize Technical Exam
+        document.addEventListener('DOMContentLoaded', function() {
+            // Reset technical exam for fresh start
+            AppState.exams.technical = { completed: false, score: 0, answers: {} };
+            saveState();
+
+            initExam('technical');
+        });
+
+        // Override submitExam for Technical to show final results
+        const originalSubmitExam = submitExam;
+        submitExam = function(examType) {
+            if (examType === 'technical') {
+                stopTimer();
+
+                const exam = ExamData[examType];
+                const answers = AppState.exams[examType].answers;
+                let score = 0;
+
+                exam.questions.forEach(q => {
+                    if (answers[q.id] === q.correct) score++;
+                });
+
+                AppState.exams[examType].completed = true;
+                AppState.exams[examType].score = score;
+                saveState();
+
+                showModal(
+                    'Technical Assessment Submitted!',
+                    'Your Technical Assessment has been submitted! Click OK to view your results.',
+                    '✅',
+                    [{
+                        text: 'OK',
+                        class: 'btn-primary',
+                        action: () => {
+                            window.location.href = '../results/index.html';
+                        }
+                    }]
+                );
+            } else {
+                originalSubmitExam(examType);
+            }
+        };
+    </script>
+</body>
+</html>

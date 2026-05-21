@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTI | Technical Assessment - Front-End</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="exam-page">
+    <!-- Navbar -->
+    <nav class="navbar-nti">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="../dashboard/index.html" class="navbar-brand-nti">
+                    <span class="brand-logo">NTI</span>
+                    <div class="brand-subtitle">
+                        <div>CAPACITY BUILDING</div>
+                        <div>PROGRAM</div>
+                    </div>
+                </a>
+
+                <div class="timer-box" id="timer">
+                    <i class="fas fa-clock"></i>
+                    <span>20:00</span>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-info d-none d-sm-block">
+                        <div class="user-greeting">HI STUDENT</div>
+                        <div class="user-role">Candidate Account</div>
+                    </div>
+                    <button class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-4">
+        <div class="row">
+            <!-- Left: Exam Area -->
+            <div class="col-lg-8">
+                <div class="exam-container">
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <h3 style="color: var(--accent-green); font-size: 1.1rem; font-weight: 700;">
+                            <i class="fas fa-laptop-code me-2"></i>TECHNICAL ASSESSMENT (FRONT-END)
+                        </h3>
+                    </div>
+
+                    <!-- Progress -->
+                    <div class="progress-container mb-3">
+                        <div class="progress-label">
+                            <span>Exam Progress</span>
+                            <span id="progress-text">Question 1 of 20</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill green" id="progress-bar" style="width: 5%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Question -->
+                    <div class="question-box" id="question-container">
+                        <!-- Filled by JS -->
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn-nti btn-nti-secondary" onclick="Exam.previous()" id="btn-prev">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <button class="btn-nti btn-nti-primary" onclick="Exam.next()" id="btn-next">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Question Navigator -->
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="card-nti" style="position: sticky; top: 100px;">
+                    <h4 class="card-title" style="font-size: 1rem;">QUESTIONS</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">TECHNICAL SESSION (20)</p>
+
+                    <div class="question-nav" id="question-nav" style="grid-template-columns: repeat(5, 1fr);">
+                        <!-- Filled by JS -->
+                    </div>
+
+                    <div class="mt-4 pt-3" style="border-top: 1px solid var(--glass-border);">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span style="width: 12px; height: 12px; background: var(--accent-green); border-radius: 50%; display: inline-block;"></span>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Answered</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span style="width: 12px; height: 12px; border: 2px solid var(--accent-green); border-radius: 50%; display: inline-block;"></span>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Current</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span style="width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 50%; display: inline-block;"></span>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Not visited</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-nti btn-nti-danger w-100 mt-4" onclick="submitExam()">
+                        <i class="fas fa-flag-checkered"></i> Submit Exam
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Completion Modal -->
+    <div class="modal-overlay" id="completion-modal">
+        <div class="modal-box">
+            <div class="modal-icon success" id="modal-icon"><i class="fas fa-check-circle"></i></div>
+            <h3 class="modal-title" id="modal-title">Assessment Submitted!</h3>
+            <p class="modal-text" id="modal-text">Your Technical Assessment has been submitted! Click OK to view your results.</p>
+            <button class="btn-nti btn-nti-primary" id="modal-btn">OK</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        Auth.requireAuth();
+
+        function submitExam() {
+            const answered = Object.keys(Exam.answers).length;
+            const total = DEMO_DATA.exams.technical.totalQuestions;
+
+            if (answered < total) {
+                showModal('Warning', `You have answered ${answered} out of ${total} questions. Are you sure you want to submit?`, 'info', 'Submit Anyway', () => {
+                    Exam.submit();
+                });
+            } else {
+                Exam.submit();
+            }
+        }
+
+        // Update progress bar
+        const originalRenderQuestion = Exam.renderQuestion;
+        Exam.renderQuestion = function() {
+            originalRenderQuestion.call(this);
+            const exam = DEMO_DATA.exams[this.currentExam];
+            const progress = ((this.currentQuestion + 1) / exam.totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = `Question ${this.currentQuestion + 1} of ${exam.totalQuestions}`;
+
+            document.getElementById('btn-prev').disabled = this.currentQuestion === 0;
+
+            const nextBtn = document.getElementById('btn-next');
+            if (this.currentQuestion === exam.totalQuestions - 1) {
+                nextBtn.innerHTML = 'Submit <i class="fas fa-check"></i>';
+                nextBtn.onclick = submitExam;
+            } else {
+                nextBtn.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
+                nextBtn.onclick = Exam.next;
+            }
+        };
+    </script>
+</body>
+</html>

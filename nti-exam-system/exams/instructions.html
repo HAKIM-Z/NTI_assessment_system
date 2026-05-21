@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTI | Exam Instructions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="exam-page">
+    <!-- Navbar -->
+    <nav class="navbar-nti">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="../dashboard/index.html" class="navbar-brand-nti">
+                    <span class="brand-logo">NTI</span>
+                    <div class="brand-subtitle">
+                        <div>CAPACITY BUILDING</div>
+                        <div>PROGRAM</div>
+                    </div>
+                </a>
+
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-info d-none d-sm-block">
+                        <div class="user-greeting">HI STUDENT</div>
+                        <div class="user-role">Candidate Account</div>
+                    </div>
+                    <button class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card-nti animate-fade-in">
+                    <div class="text-center mb-4">
+                        <div class="card-icon green mx-auto" style="width: 64px; height: 64px; font-size: 1.5rem;">📋</div>
+                        <h2 class="mt-3" style="font-weight: 700;">Exam Instructions</h2>
+                        <p style="color: var(--text-muted);">Please read carefully before starting</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="mb-3" style="color: var(--accent-green); font-size: 1rem;">
+                            <i class="fas fa-brain me-2"></i>IQ & English Assessment
+                        </h4>
+                        <ul class="instructions-list">
+                            <li><i class="fas fa-clock"></i> <strong>Total Time:</strong> 10 minutes (combined IQ + English)</li>
+                            <li><i class="fas fa-list-ol"></i> <strong>IQ Questions:</strong> 15 multiple choice questions</li>
+                            <li><i class="fas fa-language"></i> <strong>English Questions:</strong> 15 multiple choice questions</li>
+                            <li><i class="fas fa-arrow-right"></i> You will start with IQ session, then automatically proceed to English</li>
+                            <li><i class="fas fa-ban"></i> You cannot go back to previous questions once answered</li>
+                            <li><i class="fas fa-exclamation-triangle"></i> Do not refresh or close the browser during the exam</li>
+                            <li><i class="fas fa-save"></i> Click "Next" to save your answer and proceed</li>
+                            <li><i class="fas fa-check-circle"></i> The exam will auto-submit when time runs out</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="mb-3" style="color: var(--accent-orange); font-size: 1rem;">
+                            <i class="fas fa-laptop-code me-2"></i>Technical Assessment
+                        </h4>
+                        <ul class="instructions-list">
+                            <li><i class="fas fa-clock"></i> <strong>Total Time:</strong> 20 minutes</li>
+                            <li><i class="fas fa-list-ol"></i> <strong>Questions:</strong> 20 multiple choice questions</li>
+                            <li><i class="fas fa-code"></i> <strong>Focus:</strong> Front-End Development (HTML, CSS, JavaScript, Bootstrap)</li>
+                            <li><i class="fas fa-lock"></i> <strong>Unlocks after:</strong> Completing IQ & English Assessment</li>
+                            <li><i class="fas fa-percentage"></i> <strong>Passing Score:</strong> 60% (12 out of 20)</li>
+                        </ul>
+                    </div>
+
+                    <div class="alert" style="background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem;">
+                        <div class="d-flex align-items-start gap-3">
+                            <i class="fas fa-lightbulb" style="color: var(--accent-green); font-size: 1.25rem; margin-top: 0.2rem;"></i>
+                            <div>
+                                <strong style="color: var(--accent-green);">Tip:</strong>
+                                <p class="mb-0" style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    Read each question carefully. Manage your time wisely. You can navigate between questions using the question navigator on the right side.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a href="../dashboard/index.html" class="btn-nti btn-nti-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </a>
+                        <button class="btn-nti btn-nti-primary" onclick="startExam()">
+                            <i class="fas fa-play"></i> Start IQ Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="completion-modal">
+        <div class="modal-box">
+            <div class="modal-icon info" id="modal-icon"><i class="fas fa-info-circle"></i></div>
+            <h3 class="modal-title" id="modal-title">Title</h3>
+            <p class="modal-text" id="modal-text">Message</p>
+            <button class="btn-nti btn-nti-primary" id="modal-btn">OK</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        Auth.requireAuth();
+
+        function startExam() {
+            Exam.start('iq');
+        }
+    </script>
+</body>
+</html>
