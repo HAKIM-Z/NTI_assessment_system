@@ -69,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register_btn'])) {
 
         $run = mysqli_query($connection, $query);
         if ($run) {
-            // $_SESSION['success'] = "Your registration has been successful!";
             header("location:register.php");
             exit();
         }
@@ -80,4 +79,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register_btn'])) {
     }
 } else {
     header("location:register.php");
+    exit();
 }
