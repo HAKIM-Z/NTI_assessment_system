@@ -1,93 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - NTI Capacity Building Program</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
     <div class="auth-container">
-        <div class="auth-card fade-in">
-            <div class="auth-header">
-                <div class="auth-logo">NTI</div>
-                <div class="brand-text" style="align-items: center;">
-                    <span class="brand-title">Capacity Building</span>
-                    <span class="brand-subtitle">Program</span>
-                </div>
-                <h1 class="auth-title mt-3">Welcome Back</h1>
-                <p class="auth-subtitle">Sign in to access your assessments</p>
-            </div>
-
-            <form id="login-form">
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
-                </div>
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--text-secondary); cursor: pointer;">
-                        <input type="checkbox" style="accent-color: var(--accent-green);"> Remember me
-                    </label>
-                    <a href="#" style="font-size: 0.85rem; color: var(--accent-green); text-decoration: none;">Forgot password?</a>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100">Sign In</button>
-            </form>
-
-            <div class="auth-footer">
-                Don't have an account? <a href="auth/register.html">Register here</a>
-            </div>
+      <div class="auth-card fade-in">
+        <div class="auth-header">
+          <div class="auth-logo">NTI</div>
+          <div class="brand-text" style="align-items: center">
+            <span class="brand-title">Capacity Building</span>
+            <span class="brand-subtitle">Program</span>
+          </div>
+          <h1 class="auth-title mt-3">Welcome Back</h1>
+          <p class="auth-subtitle">Sign in to access your assessments</p>
         </div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <label
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.85rem;
+                color: var(--text-secondary);
+                cursor: pointer;
+              "
+            >
+              <input
+                type="checkbox"
+                style="accent-color: var(--accent-green)"
+              />
+              Remember me
+            </label>
+            <a
+              href="#"
+              style="
+                font-size: 0.85rem;
+                color: var(--accent-green);
+                text-decoration: none;
+              "
+              >Forgot password?</a
+            >
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Sign In</button>
+        </form>
+
+        <div class="auth-footer">
+          Don't have an account? <a href="auth/register.php">Register here</a>
+        </div>
+      </div>
     </div>
 
     <!-- Modal -->
     <div class="modal-overlay" id="modal">
-        <div class="modal-content">
-            <div class="modal-icon" id="modal-icon">ℹ️</div>
-            <div class="modal-title" id="modal-title">Title</div>
-            <div class="modal-text" id="modal-text">Message</div>
-            <div class="modal-buttons" id="modal-buttons"></div>
-        </div>
+      <div class="modal-content">
+        <div class="modal-icon" id="modal-icon">ℹ️</div>
+        <div class="modal-title" id="modal-title">Title</div>
+        <div class="modal-text" id="modal-text">Message</div>
+        <div class="modal-buttons" id="modal-buttons"></div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
 
-            // Demo login - accept any credentials
-            const user = {
-                name: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
-                email: email,
-                role: 'Candidate'
-            };
+          // Demo login - accept any credentials
+          const user = {
+            name:
+              email.split("@")[0].charAt(0).toUpperCase() +
+              email.split("@")[0].slice(1),
+            email: email,
+            role: "Candidate",
+          };
 
-            AppState.user = user;
-            saveState();
+          AppState.user = user;
+          saveState();
 
-            showModal(
-                'Welcome!',
-                'Login successful. Redirecting to dashboard...',
-                '✅',
-                [{
-                    text: 'Continue',
-                    class: 'btn-primary',
-                    action: () => {
-                        window.location.href = 'dashboard/index.html';
-                    }
-                }]
-            );
+          showModal(
+            "Welcome!",
+            "Login successful. Redirecting to dashboard...",
+            "✅",
+            [
+              {
+                text: "Continue",
+                class: "btn-primary",
+                action: () => {
+                  window.location.href = "dashboard/index.html";
+                },
+              },
+            ],
+          );
         });
     </script>
-</body>
+  </body>
 </html>
